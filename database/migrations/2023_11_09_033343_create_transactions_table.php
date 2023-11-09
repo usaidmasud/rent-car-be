@@ -17,9 +17,8 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->foreignId('car_id')->constrained('cars');
-            $table->integer('rental_fee')->unsigned()->comment('biaya sewa / hari');
-            $table->integer('day')->unsigned()->comment('lama pinjam');
-            $table->integer('total_payment')->unsigned()->comment('total biaya');
+            $table->foreignId('user_id')->constrained('users');
+            $table->enum('status', ['running', 'success'])->nullable()->default('running');
             $table->timestamps();
         });
     }

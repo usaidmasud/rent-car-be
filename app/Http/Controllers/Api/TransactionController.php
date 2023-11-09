@@ -47,19 +47,13 @@ class TransactionController extends Controller
             return $this->responseNotAccept('Sedang di sewa');
         }
         try {
-            $start_date = Carbon::parse($credentials['start_date']);
-            $end_date = Carbon::parse($credentials['end_date']);
-            // dapatkan hari pinjaman
-            $day = $end_date->diffInDays($start_date) + 1;
             DB::beginTransaction();
             $obj = Transaction::create([
                 "date" => $credentials['date'],
                 "start_date" => $credentials['start_date'],
                 "end_date" => $credentials['end_date'],
                 "car_id" => $credentials['car_id'],
-                "rental_fee" => $car->rental_fee,
-                "day" => $day,
-                "total_payment" => $day * $car->rental_fee,
+                "user_id" => auth()->user()->id,
             ]);
 
             // update status mobil menjadi sedang dipinjam
@@ -92,9 +86,9 @@ class TransactionController extends Controller
     public function update(Request $request, string $id)
     {
         $find = Transaction::find($id);
-         // update status mobil yang sudah dipinjam sebelumnya
-         $carTransaction = Car::find($find['car_id']);
-         $carTransaction->update([
+        // update status mobil yang sudah dipinjam sebelumnya
+        $carTransaction = Car::find($find['car_id']);
+        $carTransaction->update([
             "is_rent" => 0
         ]);
 
@@ -109,19 +103,13 @@ class TransactionController extends Controller
             return $this->responseNotAccept('Sedang di sewa');
         }
         try {
-            $start_date = Carbon::parse($credentials['start_date']);
-            $end_date = Carbon::parse($credentials['end_date']);
-            // dapatkan hari pinjaman
-            $day = $end_date->diffInDays($start_date) + 1;
             DB::beginTransaction();
             $find->update([
                 "date" => $credentials['date'],
                 "start_date" => $credentials['start_date'],
                 "end_date" => $credentials['end_date'],
                 "car_id" => $credentials['car_id'],
-                "rental_fee" => $car->rental_fee,
-                "day" => $day,
-                "total_payment" => $day * $car->rental_fee,
+                "user_id" => auth()->user()->id,
             ]);
             // update status mobil menjadi sedang dipinjam
             $car->update([

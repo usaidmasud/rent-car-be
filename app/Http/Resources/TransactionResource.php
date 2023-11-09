@@ -22,8 +22,10 @@ class TransactionResource extends JsonResource
             "car_id" => $this->car_id,
             "rental_fee" => $this->rental_fee,
             "day" => $this->day,
+            "status" => $this->status,
             "total_payment" => $this->total_payment,
             "car" => new CarResource($this->car),
+            "user" => new UserResource($this->user),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

@@ -3,9 +3,9 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CarController;
 use App\Http\Controllers\Api\FileController;
+use App\Http\Controllers\Api\ReturnTransactionController;
 use App\Http\Controllers\Api\TransactionController;
 use Illuminate\Http\Request;
-use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,5 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/profile', [AuthController::class, 'profile']);
     Route::apiResource('car', CarController::class);
     Route::apiResource('transaction', TransactionController::class);
+    Route::apiResource('return-transaction', ReturnTransactionController::class)->only(['index', 'store', 'destroy', 'show']);
     Route::post('file/upload', [FileController::class, 'upload']);
 });

@@ -21,10 +21,8 @@ class Transaction extends Model
         'start_date',
         'end_date',
         'car_id',
-        'car',
-        'rental_fee',
-        'day',
-        'total_payment',
+        'user_id',
+        'status'
     ];
 
     /**
@@ -35,5 +33,15 @@ class Transaction extends Model
     public function car(): BelongsTo
     {
         return $this->belongsTo(Car::class, 'car_id', 'id');
+    }
+
+    /**
+     * Get the user that owns the Transaction
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
