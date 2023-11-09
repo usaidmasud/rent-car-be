@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('photo', 100)->nullable();
             $table->string('plat_number', 10)->unique();
             $table->integer('rental_fee')->unsigned()->default(0);
+            $table->tinyInteger('is_rent')->unsigned()->default(0);
             $table->timestamps();
         });
     }
