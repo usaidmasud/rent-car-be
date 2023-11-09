@@ -19,5 +19,30 @@ class Car extends Model
         'photo',
         'plat_number',
         'rental_fee',
+        'is_rent',
     ];
+
+    /**
+     * Scope a query to only include search
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('plat_number', 'LIKE', '%' . $search . '%')
+            ->orWhere('model', 'LIKE', '%' . $search . '%')
+            ->orWhere('merk', 'LIKE', '%' . $search . '%');
+    }
+
+    /**
+     * Scope a query to only include status
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('is_rent', $status);
+    }
 }

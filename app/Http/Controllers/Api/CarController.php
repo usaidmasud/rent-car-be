@@ -20,9 +20,15 @@ class CarController extends Controller
     public function index()
     {
         $search = request()->search;
-        $plat_number = request()->plat_number;
+        $status = request()->status;
         $perPage = request()->per_page;
         $items = Car::oldest();
+        if (!is_null($search)) {
+            $items->search($search);
+        }
+        if (!is_null($status)) {
+            $items->status($status);
+        }
         if (!is_null($perPage)) {
             return CarResource::collection($items->paginate($perPage));
         } else {
