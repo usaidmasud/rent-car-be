@@ -21,9 +21,8 @@ class TransactionController extends Controller
     public function index()
     {
         $search = request()->search;
-        $plat_number = request()->plat_number;
         $perPage = request()->per_page;
-        $items = Transaction::with(['car'])->latest();
+        $items = Transaction::with(['car'])->where('user_id', auth()->user()->id)->latest();
         if (!is_null($perPage)) {
             return TransactionResource::collection($items->paginate($perPage));
         } else {
@@ -49,7 +48,7 @@ class TransactionController extends Controller
         try {
             DB::beginTransaction();
             $obj = Transaction::create([
-                "date" => $credentials['date'],
+                "date" => Carbon::now()->format('Y-m-d'),
                 "start_date" => $credentials['start_date'],
                 "end_date" => $credentials['end_date'],
                 "car_id" => $credentials['car_id'],

@@ -20,14 +20,14 @@ class CarController extends Controller
     public function index()
     {
         $search = request()->search;
-        $status = request()->status;
+        $is_rent = request()->is_rent;
         $perPage = request()->per_page;
         $items = Car::oldest();
         if (!is_null($search)) {
             $items->search($search);
         }
-        if (!is_null($status)) {
-            $items->status($status);
+        if (!is_null($is_rent)) {
+            $items->isRent($is_rent);
         }
         if (!is_null($perPage)) {
             return CarResource::collection($items->paginate($perPage));

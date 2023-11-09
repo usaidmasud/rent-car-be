@@ -36,13 +36,13 @@ class Car extends Model
     }
 
     /**
-     * Scope a query to only include status
+     * Scope a query to only include isRent
      *
      * @param  \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeStatus($query, $status)
+    public function scopeIsRent($query, $payload)
     {
-        return $query->where('is_rent', $status);
+        return $query->where('is_rent', $payload);
     }
 }

@@ -35,6 +35,7 @@ class CarRequest extends FormRequest
             'photo' => 'max:100|string|nullable',
             'plat_number' => 'required|string|unique:cars,plat_number',
             'rental_fee' => 'integer|min:0',
+            'is_rent' => 'integer|min:0',
         ];
     }
     private function update(): array
@@ -45,6 +46,7 @@ class CarRequest extends FormRequest
             'photo' => 'max:100|string|nullable',
             'plat_number' => 'required|string|unique:cars,plat_number,' . $this->car,
             'rental_fee' => 'integer|min:0',
+            'is_rent' => 'integer|min:0',
         ];
     }
 }

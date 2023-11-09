@@ -26,7 +26,7 @@ class ReturnTransactionController extends Controller
         $search = request()->search;
         $plat_number = request()->plat_number;
         $perPage = request()->per_page;
-        $items = ReturnTransaction::with(['car'])->latest();
+        $items = ReturnTransaction::with(['transaction','transaction.car', 'user'])->where('user_id',auth()->user()->id)->latest();
         if (!is_null($perPage)) {
             return ReturnTransactionResource::collection($items->paginate($perPage));
         } else {

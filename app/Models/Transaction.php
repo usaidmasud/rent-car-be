@@ -21,6 +21,7 @@ class Transaction extends Model
         'start_date',
         'end_date',
         'car_id',
+        'transaction_id',
         'user_id',
         'status'
     ];

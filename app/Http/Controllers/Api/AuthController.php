@@ -85,9 +85,7 @@ class AuthController extends Controller
             $user = User::where('sim_number', $request->sim_number)->first();
 
             return response()->json([
-                'status' => true,
-                'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'accessToken' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
